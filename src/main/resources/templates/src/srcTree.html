@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content ">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox-content">
+                <div id="jsTree"></div>
+            </div>
+            <div class="form-group ">
+                <div class="col-sm-12 col-sm-offset-12">
+                    <button type="submit" onclick="loadSrc()" class="btn btn-primary">提交</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:include="include :: footer"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        getTreeData()
+    });
+
+    function getTreeData() {
+        $.ajax({
+            type: "GET",
+            url: "/src/tree",
+            success: function (tree) {
+                loadTree(tree);
+            }
+        });
+    }
+
+    function loadTree(tree) {
+        $('#jsTree').jstree({
+            'core': {
+                'data': tree
+            },
+            "plugins": ["checkbox"]
+        });
+        $('#jsTree').jstree().open_all();
+    }
+
+    function loadSrc() {
+        var srcNames, srcIds;
+        var ref = $('#jsTree').jstree(true); // 获得整个树
+        srcIds = ref.get_bottom_selected();
+        srcs = ref.get_bottom_checked('true');
+        var txt = "";
+        for (var src in srcs) {
+            if (srcs[src].state.mType == "src") {
+                txt = txt + srcs[src].text + ",";
+            }
+        }
+        parent.loadSrc(srcIds, txt);
+        var index = parent.layer.getFrameIndex(window.name); // 获取窗口索引
+        parent.layer.close(index);
+    }
+</script>
+</body>
+</html>

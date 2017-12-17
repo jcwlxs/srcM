@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <title>SRC厂商搜索</title>
+    <div th:include="include::header"></div>
+</head>
+<body>
+<nav th:fragment="nav">
+    <div class="container">
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span> <span
+                    class="icon-bar"></span> <span class="icon-bar"></span> <span
+                    class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/" style="font-size: 24px;">SRC厂商搜索平台</a>
+        </div>
+        <div class="collapse navbar-collapse"
+             id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <div class="input-group">
+                        <input type="text" class="form-control">
+                        <span class="input-group-btn">
+                        <button class="btn btn-success" type="button">搜索</button>
+                    </span>
+                    </div>
+                </li>
+                <li><a href="/login"><i class="fa fa-user" aria-hidden="true"></i> 登录</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div style="display: flex;justify-content: space-between;flex-flow: wrap row" id="demo"></div>
+
+<div th:replace="include::footer"></div>
+<script>
+    layui.use('flow', function () {
+        var flow = layui.flow;
+        flow.load({
+            elem: '#demo',
+            done: function (page, next) {
+                $.get('src/list?offset=' + (page - 1) * 5 + '&limit=5', function (d) {
+                    console.log('d', d);
+                    var lis = [];
+                    var rows = d.rows;
+                    for (var i = 0; i < rows.length; i++) {
+                        lis.push('<img style="margin: 10px auto" width="200" height="150" src="' + rows[i].imgUrl + '" />')
+                    }
+                    next(lis.join(''), page <= rows.length / 5);
+                });
+            }
+        })
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bootdo.src.dao.SrcDao">
+
+    <select id="get" resultType="com.bootdo.src.domain.SrcDO">
+        SELECT
+            `id`,
+            `name`,
+            `img_url`,
+            `link`,
+            `introduction`,
+            `gmt_create`,
+            `gmt_modified`
+        FROM bus_src
+        WHERE id = #{value}
+    </select>
+
+    <select id="list" resultType="com.bootdo.src.domain.SrcDO">
+        select `id`,`name`,`img_url`,`link`,`introduction`,`gmt_create`,`gmt_modified` from bus_src
+        <where>
+            <if test="id != null and id != ''">and id = #{id}</if>
+            <if test="name != null and name != ''">and name like concat('%',#{name},'%')</if>
+            <if test="imgUrl != null and imgUrl != ''">and img_url = #{imgUrl}</if>
+            <if test="link != null and link != ''">and link = #{link}</if>
+            <if test="introduction != null and introduction != ''">and introduction = #{introduction}</if>
+            <if test="gmtCreate != null and gmtCreate != ''">and gmt_create = #{gmtCreate}</if>
+            <if test="gmtModified != null and gmtModified != ''">and gmt_modified = #{gmtModified}</if>
+        </where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+            <otherwise>
+                order by id desc
+            </otherwise>
+        </choose>
+        <if test="offset != null and limit != null">
+            limit #{offset}, #{limit}
+        </if>
+    </select>
+
+    <select id="count" resultType="int">
+        select count(*) from bus_src
+        <where>
+            <if test="id != null and id != ''">and id = #{id}</if>
+            <if test="name != null and name != ''">and name = #{name}</if>
+            <if test="imgUrl != null and imgUrl != ''">and img_url = #{imgUrl}</if>
+            <if test="link != null and link != ''">and link = #{link}</if>
+            <if test="introduction != null and introduction != ''">and introduction = #{introduction}</if>
+            <if test="gmtCreate != null and gmtCreate != ''">and gmt_create = #{gmtCreate}</if>
+            <if test="gmtModified != null and gmtModified != ''">and gmt_modified = #{gmtModified}</if>
+        </where>
+    </select>
+
+    <insert id="save" parameterType="com.bootdo.src.domain.SrcDO" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO bus_src
+        (
+            `name`,
+            `img_url`,
+
+            `link`,
+            `introduction`,
+            `gmt_create`,
+            `gmt_modified`
+        )
+        VALUES
+            (
+                #{name},
+                #{imgUrl},
+                #{link},
+                #{introduction},
+                #{gmtCreate},
+                #{gmtModified}
+            )
+    </insert>
+
+    <update id="update" parameterType="com.bootdo.src.domain.SrcDO">
+        update bus_src
+        <set>
+            <if test="name != null">`name` = #{name},</if>
+            <if test="imgUrl != null">`img_url` = #{imgUrl},</if>
+            <if test="link != null">`link` = #{link},</if>
+            <if test="introduction != null">`introduction` = #{introduction},</if>
+            <if test="gmtCreate != null">`gmt_create` = #{gmtCreate},</if>
+            <if test="gmtModified != null">`gmt_modified` = #{gmtModified}</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="remove">
+        DELETE FROM bus_src
+        WHERE id = #{value}
+    </delete>
+
+    <delete id="batchRemove">
+        delete from bus_src where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>
