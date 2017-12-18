@@ -1,12 +1,10 @@
 package com.bootdo.src.controller;
 
-import com.bootdo.common.domain.Tree;
 import com.bootdo.common.utils.PageUtils;
 import com.bootdo.common.utils.Query;
 import com.bootdo.common.utils.R;
 import com.bootdo.src.domain.SrcDO;
 import com.bootdo.src.service.SrcService;
-import com.bootdo.system.domain.DeptDO;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,10 +28,15 @@ public class SrcController {
 
 
     @GetMapping("index")
-    public String index(){
+    public String index() {
         return "index";
     }
 
+    @GetMapping("view/{id}")
+    public String view(@PathVariable("id") Long id,Model model) {
+        model.addAttribute("srcObj",srcService.get(id));
+        return "view";
+    }
 
     @GetMapping()
     @RequiresPermissions("src")
@@ -43,7 +46,6 @@ public class SrcController {
 
     @ResponseBody
     @GetMapping("/list")
-    @RequiresPermissions("src")
     public PageUtils list(@RequestParam Map<String, Object> params) {
         //查询列表数据
         Query query = new Query(params);

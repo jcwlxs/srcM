@@ -7,6 +7,38 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <title>SRC厂商搜索</title>
     <div th:include="include::header"></div>
+    <style>
+        body{
+            background-color: #0a0f30;
+        }
+        .comments {
+            background: #fff;
+            position: relative;
+        }
+
+        iframe {
+            width: 100%;
+            height: auto;
+            background-color:#fcfcfc;
+            border: 0;
+        }
+
+        .comment-wrap {
+            /*background: #fff;*/
+            position: absolute;
+            top: 50%;
+        }
+
+        .comments .comment-wrap {
+            display: none;
+            z-index: 5;
+            padding: 10px
+        }
+
+        .comments:hover .comment-wrap {
+            display: block;
+        }
+    </style>
 </head>
 <body>
 <nav th:fragment="nav">
@@ -18,7 +50,7 @@
                     class="icon-bar"></span> <span class="icon-bar"></span> <span
                     class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/" style="font-size: 24px;">SRC厂商搜索平台</a>
+            <a class="navbar-brand" href="/" style="font-size: 24px;color: honeydew">SRC厂商搜索平台</a>
         </div>
         <div class="collapse navbar-collapse"
              id="bs-example-navbar-collapse-1">
@@ -36,7 +68,7 @@
         </div>
     </div>
 </nav>
-<div style="display: flex;justify-content: space-between;flex-flow: wrap row" id="demo"></div>
+<div style="display: flex;justify-content: space-around;flex-flow: wrap row" id="demo"></div>
 
 <div th:replace="include::footer"></div>
 <script>
@@ -50,13 +82,19 @@
                     var lis = [];
                     var rows = d.rows;
                     for (var i = 0; i < rows.length; i++) {
-                        lis.push('<img style="margin: 10px auto" width="200" height="150" src="' + rows[i].imgUrl + '" />')
+                        lis.push('<div> ' +
+                            '<div class="comments">' +
+                            '<a href="#" class="btn"><img style="margin: 10px auto" width="200" height="150" src="' + rows[i].imgUrl + '"/></a>' +
+                            '<div class="comment-wrap"><iframe src="src/view/' + rows[i].id + '"></iframe></div>' +
+                            '</div>' +
+                            '</div>')
                     }
                     next(lis.join(''), page <= rows.length / 5);
                 });
             }
         })
     })
+
 </script>
 </body>
 </html>

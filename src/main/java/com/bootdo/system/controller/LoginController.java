@@ -31,7 +31,7 @@ public class LoginController extends BaseController {
 	MenuService menuService;
 
 	@GetMapping({ "/", "" })
-	String welcome(Model model) {
+	public String welcome(Model model) {
 		return "index";
 	}
 
