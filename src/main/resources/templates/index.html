@@ -8,93 +8,98 @@
     <title>SRC厂商搜索</title>
     <div th:include="include::header"></div>
     <style>
-        body{
+        body {
             background-color: #0a0f30;
         }
-        .comments {
+
+        .src {
             background: #fff;
             position: relative;
         }
 
-        iframe {
-            width: 100%;
-            height: auto;
-            background-color:#fcfcfc;
+        iframe.ff {
+            width: 200%;
+            height: 200%;
+            background-color: #fcfcfc;
             border: 0;
+            transition: all 0.3s ease-in-out;
+        }
+        iframe.ff:hover{
+            border-radius: 5px;
+            transform: scale(1.5);
         }
 
-        .comment-wrap {
+        .detail {
             /*background: #fff;*/
             position: absolute;
-            top: 50%;
+            top: 0;
+            /*left: -100%;*/
         }
 
-        .comments .comment-wrap {
+        .src .detail {
             display: none;
             z-index: 5;
-            padding: 10px
+            /*padding: 10px*/
         }
 
-        .comments:hover .comment-wrap {
+        .src:hover .detail {
             display: block;
+        }
+
+        img {
+            cursor: pointer;
+            border-radius: 5px;
+            width: 50px;
+            height: 50px;
         }
     </style>
 </head>
 <body>
-<nav th:fragment="nav">
-    <div class="container">
-        <div class="navbar-header page-scroll">
-            <button type="button" class="navbar-toggle" data-toggle="collapse"
-                    data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span> <span
-                    class="icon-bar"></span> <span class="icon-bar"></span> <span
-                    class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/" style="font-size: 24px;color: honeydew">SRC厂商搜索平台</a>
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" style="color: honeydew;font-size: 2rem" href="#">SRC厂商搜索平台</a>
         </div>
-        <div class="collapse navbar-collapse"
-             id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <div class="input-group">
-                        <input type="text" class="form-control">
-                        <span class="input-group-btn">
-                        <button class="btn btn-success" type="button">搜索</button>
-                    </span>
-                    </div>
-                </li>
-                <li><a href="/login"><i class="fa fa-user" aria-hidden="true"></i> 登录</a></li>
-            </ul>
-        </div>
+        <form class="navbar-form navbar-left" >
+            <div class="form-group">
+                <input type="text" name="srcName" class="form-control" placeholder="Search">
+            </div>
+            <button type="submit" class="btn btn-success">搜索</button>
+        </form>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="/login"><span class="glyphicon glyphicon-user"></span> 登录</a></li>
+        </ul>
     </div>
 </nav>
-<div style="display: flex;justify-content: space-around;flex-flow: wrap row" id="demo"></div>
+<div style="display: flex;justify-content: space-around;margin:10% 50px" id="demo"></div>
 
 <div th:replace="include::footer"></div>
 <script>
+    $(function () {
+        getTreeData();
+    });
+    // layui 流加载图片
     layui.use('flow', function () {
         var flow = layui.flow;
         flow.load({
             elem: '#demo',
             done: function (page, next) {
-                $.get('src/list?offset=' + (page - 1) * 5 + '&limit=5', function (d) {
+                $.get('src/list?offset=' + (page - 1) * 50 + '&limit=50', function (d) {
                     console.log('d', d);
                     var lis = [];
                     var rows = d.rows;
                     for (var i = 0; i < rows.length; i++) {
-                        lis.push('<div> ' +
-                            '<div class="comments">' +
-                            '<a href="#" class="btn"><img style="margin: 10px auto" width="200" height="150" src="' + rows[i].imgUrl + '"/></a>' +
-                            '<div class="comment-wrap"><iframe src="src/view/' + rows[i].id + '"></iframe></div>' +
-                            '</div>' +
+                        lis.push(
+                            '<div class="src">' +
+                            '<img src="' + rows[i].imgUrl + '"/>' +
+                            '<div class="detail"><iframe class="ff" src="src/view/' + rows[i].id + '"></iframe></div>' +
                             '</div>')
                     }
-                    next(lis.join(''), page <= rows.length / 5);
+                    next(lis.join(''), page <= rows.length / 50);
                 });
             }
         })
-    })
-
+    });
 </script>
 </body>
 </html>

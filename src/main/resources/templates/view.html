@@ -5,10 +5,11 @@
     <title>Title</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         /*滚动条 start*/
         ::-webkit-scrollbar {
-            width: 10px;
+            width: 0;
             height: 4px;
             background-color: #F5F5F5;
         }
@@ -28,13 +29,38 @@
             -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
             background-color:rgba(217, 211, 211, 1);
         }
+        a{
+            transition: all 0.2s linear;
+        }
+        a:hover{
+            transform: scale(1.5);
+        }
+        body{
+            background-color: #868598;
+        }
     </style>
 </head>
 <body>
+
 <!--<p>ID：<span th:text="${srcObj.id}"></span></p>-->
-<p><a class="btn" target="_blank" th:href="${'http://'+srcObj.link}">公司链接</a><a class="btn" th:href="${srcObj.id}">公司产品</a></p>
-<p>公司名称：<span th:text="${srcObj.name}"></span></p>
-<p>公司简介：<span th:text="${srcObj.introduction}"></span></p>
-<!--<p><img th:src="${srcObj.imgUrl}" alt=""/></p>-->
+<p style="text-align: center">
+    <a class="btn btn-link" title="公司链接" target="_blank" th:href="${'http://'+srcObj.link}"><i class="fa fa-link"></i></a>
+    <a class="btn" th:data="${srcObj.id}" id="category" title="产品分类" href="javascript:;"><i class="fa fa-product-hunt" ></i></a>
+</p>
+<p style="font-size: .1em">公司：<span th:text="${srcObj.name}"></span></p>
+<p style="font-size: .1em">简介：<span th:text="${srcObj.introduction}"></span></p>
+<script>
+    document.getElementById('category').addEventListener('click',function () {
+        parent.layer.open({
+            type:2,
+            title:"产品分类",
+            shadeClose: true,
+            shade: 0.8,
+            area : [ '40%', '50%' ],
+            content:"/system/sysDept/treeView"
+        })
+    });
+
+</script>
 </body>
 </html>

@@ -44,11 +44,11 @@
 			var userNames,userIds;
 			var ref = $('#jsTree').jstree(true); // 获得整个树
 			userIds = ref.get_bottom_selected();
-			users = ref.get_bottom_checked('true');
+			userNames = ref.get_bottom_checked('true');
 			var txt="";
-			for(var user in users){
-				if(users[user].state.mType=="user"){
-					txt=txt+users[user].text+",";
+			for(var user in userNames){
+				if(userNames[user].state.mType=="user"){
+					txt=txt+userNames[user].text+",";
 				}
 			}
 			parent.loadUser(userIds,txt);

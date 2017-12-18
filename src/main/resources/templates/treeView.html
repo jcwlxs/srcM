@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content ">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox-content">
+                <div id="jsTree"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:include="include :: footer"></div>
+<script type="text/javascript">
+    $(document).ready(function() {
+        getTreeData()
+    });
+    function getTreeData() {
+        $.ajax({
+            type : "GET",
+            url : "/src/tree",
+            success : function(tree) {
+                loadTree(tree);
+            }
+        });
+    }
+    function loadTree(tree) {
+        $('#jsTree').jstree({
+            'core' : {
+                'data' : tree
+            },
+            "plugins" : [ "checkbox" ]
+        });
+        $('#jsTree').jstree().open_all();
+    }
+</script>
+</body>
+</html>

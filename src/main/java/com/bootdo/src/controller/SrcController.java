@@ -1,16 +1,20 @@
 package com.bootdo.src.controller;
 
+import com.bootdo.common.domain.Tree;
 import com.bootdo.common.utils.PageUtils;
 import com.bootdo.common.utils.Query;
 import com.bootdo.common.utils.R;
 import com.bootdo.src.domain.SrcDO;
 import com.bootdo.src.service.SrcService;
+import com.bootdo.system.domain.DeptDO;
+import com.bootdo.system.service.DeptService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
@@ -117,14 +121,16 @@ public class SrcController {
         return R.ok();
     }
 
-//    @GetMapping("/tree")
-//    @ResponseBody
-//    public Tree<DeptDO> tree() {
-//        return srcService.getTree();
-//    }
-//
-//    @GetMapping("/treeView")
-//    public String treeView() {
-//        return "/srcTree";
-//    }
+    @Resource
+    private DeptService deptService;
+    @GetMapping("/tree")
+    @ResponseBody
+    public Tree<DeptDO> tree(@RequestParam(required = false) Long srcId) {
+        return deptService.getTree(srcId);
+    }
+
+    @GetMapping("/treeView")
+    public String treeView() {
+        return "/treeView";
+    }
 }
