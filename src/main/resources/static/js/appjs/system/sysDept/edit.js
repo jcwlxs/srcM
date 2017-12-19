@@ -47,3 +47,17 @@ function validateRule() {
 		}
 	})
 }
+
+//打开公司列表
+function openSrc() {
+    layer.open({
+        type: 2,
+        title: '公司列表',
+        content: '/system/sysDept/deptSrc',
+        area: ['480px', '90%'],
+        success: function (layero, index) {
+            //var body = layer.getChildFrame('.ico-list', index);
+            console.log(layero, index);
+        }
+    });
+}

@@ -50,7 +50,7 @@ function validateRule() {
     })
 }
 
-//打开图标列表
+//打开公司列表
 function openSrc() {
     layer.open({
         type: 2,

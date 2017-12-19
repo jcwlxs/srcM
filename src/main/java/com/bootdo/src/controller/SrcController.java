@@ -130,7 +130,8 @@ public class SrcController {
     }
 
     @GetMapping("/treeView")
-    public String treeView() {
+    public String treeView(@RequestParam(required = false) Long srcId,Model model) {
+        model.addAttribute("srcId",srcId);
         return "/treeView";
     }
 }

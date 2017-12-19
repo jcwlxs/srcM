@@ -60,7 +60,7 @@ public class DeptController extends BaseController {
         if (pId == 0) {
             model.addAttribute("pName", "根目录");
         } else {
-            model.addAttribute("pName", sysDeptService.get(pId).getName());
+            model.addAttribute("dept",sysDeptService.get(pId));
         }
         return prefix + "/add";
     }
@@ -119,6 +119,7 @@ public class DeptController extends BaseController {
             if (d1 != null) {
 //                delTree(deptId);
 //                return R.ok();
+                // todo 递归删除
             }
             return R.error(1, "包含下级部门,不允许修改");
         } else {//没有下级部门，直接删除
