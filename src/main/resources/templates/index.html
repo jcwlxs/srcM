@@ -6,14 +6,15 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <title>SRC厂商搜索</title>
-    <div th:include="include::header"></div>
+    <div th:replace="include::header"></div>
     <style>
         body {
             background-color: #0a0f30;
         }
 
-        .src {
-            background: #fff;
+        .logo {
+            background: #fafafa;
+            margin: 50px;
             position: relative;
         }
 
@@ -24,25 +25,25 @@
             border: 0;
             transition: all 0.3s ease-in-out;
         }
-        iframe.ff:hover{
-            border-radius: 5px;
-            transform: scale(1.5);
+
+        iframe.ff:hover {
+            border-radius: 7px;
+            transform: scale(1.2);
         }
 
         .detail {
-            /*background: #fff;*/
             position: absolute;
             top: 0;
-            /*left: -100%;*/
+            left: -50%;
         }
 
-        .src .detail {
+        .logo .detail {
             display: none;
             z-index: 5;
             /*padding: 10px*/
         }
 
-        .src:hover .detail {
+        .logo:hover .detail {
             display: block;
         }
 
@@ -52,6 +53,17 @@
             width: 50px;
             height: 50px;
         }
+
+        #demo {
+            display: flex;
+            justify-content: space-evenly;
+            flex-flow: row wrap;
+            margin: 5% 10%;
+        }
+
+        input {
+            text-align: center
+        }
     </style>
 </head>
 <body>
@@ -60,46 +72,48 @@
         <div class="navbar-header">
             <a class="navbar-brand" style="color: honeydew;font-size: 2rem" href="#">SRC厂商搜索平台</a>
         </div>
-        <form class="navbar-form navbar-left" >
-            <div class="form-group">
-                <input type="text" name="srcName" class="form-control" placeholder="Search">
-            </div>
-            <button type="submit" class="btn btn-success">搜索</button>
-        </form>
-        <ul class="nav navbar-nav navbar-right">
-            <li><a href="/login"><span class="glyphicon glyphicon-user"></span> 登录</a></li>
-        </ul>
+
+        <!--<ul class="nav navbar-nav navbar-right">-->
+        <!--<li><a href="/login"><span class="glyphicon glyphicon-user"></span> 登录</a></li>-->
+        <!--</ul>-->
     </div>
 </nav>
-<div style="display: flex;justify-content: space-around;margin:10% 50px" id="demo"></div>
+<div style="width: 100%;">
+    <input style="width: 50%;margin: 5% auto 0;border-radius: 15px;" type="search" id="name"
+           name="name" class="form-control" placeholder="搜索厂商">
+    <!--<button type="button" id="search" class="btn btn-success">搜索</button>-->
+</div>
+<div id="demo"></div>
 
 <div th:replace="include::footer"></div>
 <script>
     $(function () {
-        getTreeData();
+        iLoad()
     });
-    // layui 流加载图片
-    layui.use('flow', function () {
-        var flow = layui.flow;
-        flow.load({
-            elem: '#demo',
-            done: function (page, next) {
-                $.get('src/list?offset=' + (page - 1) * 50 + '&limit=50', function (d) {
-                    console.log('d', d);
-                    var lis = [];
-                    var rows = d.rows;
-                    for (var i = 0; i < rows.length; i++) {
-                        lis.push(
-                            '<div class="src">' +
-                            '<img src="' + rows[i].imgUrl + '"/>' +
-                            '<div class="detail"><iframe class="ff" src="src/view/' + rows[i].id + '"></iframe></div>' +
-                            '</div>')
-                    }
-                    next(lis.join(''), page <= rows.length / 50);
-                });
+    $('#name').bind('keyup', function (e) {
+        if (e.key === 'Enter') {
+            $('#demo').html('');
+            iLoad($('#name').val())
+        }
+    });
+
+    function iLoad(name, offset, limit) {
+        var search = '';
+        if (name) {
+            search = '&name=' + name;
+        }
+        if (!offset) offset = 0;
+        if (!limit) limit = 20;
+        $.get('src/list?offset=' + offset + '&limit=' + limit + search, function (data, status) {
+            var rows = data.rows;
+            for (var i = 0; i < rows.length; i++) {
+                $('#demo').append('<div class="logo">' +
+                    '<img src="' + rows[i].imgUrl + '"/>' +
+                    '<div class="detail"><iframe class="ff" src="src/view/' + rows[i].id + '"></iframe></div>' +
+                    '</div>')
             }
         })
-    });
+    }
 </script>
 </body>
 </html>

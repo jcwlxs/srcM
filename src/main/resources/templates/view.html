@@ -33,10 +33,10 @@
             transition: all 0.2s linear;
         }
         a:hover{
-            transform: scale(1.5);
+            transform: scale(1.7);
         }
         body{
-            background-color: #868598;
+            background-color: #151844;
         }
     </style>
 </head>
@@ -45,10 +45,10 @@
 <!--<p>ID：<span th:text="${srcObj.id}"></span></p>-->
 <p style="text-align: center">
     <a class="btn btn-link" title="公司链接" target="_blank" th:href="${'http://'+srcObj.link}"><i class="fa fa-link"></i></a>
-    <a class="btn" th:data="${srcObj.id}" id="category" title="产品分类" href="javascript:;"><i class="fa fa-product-hunt" ></i></a>
+    <a class="btn btn-link" th:data="${srcObj.id}" id="category" title="产品分类" href="javascript:;"><i class="fa fa-product-hunt" ></i></a>
 </p>
-<p style="font-size: .1em">公司：<span th:text="${srcObj.name}"></span></p>
-<p style="font-size: .1em">简介：<span th:text="${srcObj.introduction}"></span></p>
+<h5 style=";color: white;text-align: center"><span th:text="${srcObj.name}"></span></h5>
+<p style="font-size: .1em;color: white">简介：<span th:text="${srcObj.introduction}"></span></p>
 <script>
     document.getElementById('category').addEventListener('click',function () {
         parent.layer.open({
@@ -57,7 +57,7 @@
             shadeClose: true,
             shade: 0.8,
             area : [ '40%', '50%' ],
-            content:"/system/sysDept/treeView"
+            content:"/src/treeView"
         })
     });
 

@@ -24,7 +24,7 @@ public class DeptDO implements Serializable {
     //是否删除  -1：已删除  0：正常
     private Integer delFlag;
     private Long srcId;
-    private Long srcName;
+    private String srcName;
 
     /**
      * 设置：
@@ -115,11 +115,11 @@ public class DeptDO implements Serializable {
         this.srcId = srcId;
     }
 
-    public Long getSrcName() {
+    public String getSrcName() {
         return srcName;
     }
 
-    public void setSrcName(Long srcName) {
+    public void setSrcName(String srcName) {
         this.srcName = srcName;
     }
 }

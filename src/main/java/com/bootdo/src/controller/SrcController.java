@@ -47,7 +47,6 @@ public class SrcController {
     public String Src() {
         return "src/src";
     }
-
     @ResponseBody
     @GetMapping("/list")
     public PageUtils list(@RequestParam Map<String, Object> params) {
@@ -126,6 +125,7 @@ public class SrcController {
     @GetMapping("/tree")
     @ResponseBody
     public Tree<DeptDO> tree(@RequestParam(required = false) Long srcId) {
+        System.err.println("ID:"+srcId);
         return deptService.getTree(srcId);
     }
 
