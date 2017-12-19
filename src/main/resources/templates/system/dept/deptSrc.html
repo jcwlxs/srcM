@@ -1,28 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        ul {
+            display: inline-block;
+        }
+
+        ul li {
+            list-style: none;
+            cursor: pointer;
+            margin: 5px 5px 0;
+        }
+
+        ul li:hover {
+            background-color: #1d9d74;
+            color: #ffffff;
+        }
+    </style>
 </head>
 <body>
-<ul>
-    <li>1</li>
-    <li>2</li>
-    <li>3</li>
-    <li>4</li>
-    <li>5</li>
-    <li>6</li>
-    <li>7</li>
-    <li>8</li>
-    <li>9</li>
-    <li>10</li>
+<ul th:each="src: ${srcList}">
+    <li th:data="${src.id}" th:text="${src.name}"></li>
 </ul>
 <script src="/js/jquery.min.js"></script>
 <script type="text/javascript">
     var index = parent.layer.getFrameIndex(window.name);
     //给父页面传值
-    $('li').on('click', function(){
-        parent.$('#srcId').val($(this).text());
+    $('li').on('click', function () {
+        parent.$('#srcId').val($(this).attr('data'));
         parent.$('#srcName').val($(this).text());
         //parent.layer.tips('Look here', '#parentIframe', {time: 5000});
         parent.layer.close(index);

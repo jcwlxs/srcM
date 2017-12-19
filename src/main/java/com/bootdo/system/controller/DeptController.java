@@ -40,8 +40,9 @@ public class DeptController extends BaseController {
     }
 
     @GetMapping("deptSrc")
-    public String deptSrc() {
-        return prefix + "/deptSrc";
+    public String deptSrc(Model model) {
+        model.addAttribute("srcList",srcService.list(null));
+        return "system/dept/deptSrc";
     }
 
     @ResponseBody
