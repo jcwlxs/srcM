@@ -9,7 +9,7 @@
 				<div class="ibox float-e-margins">
 					<div class="ibox-content">
 						<form class="form-horizontal m-t" id="signupForm">
-							<input id="deptId" name="deptId" th:value="${sysDept.deptId}"
+							<input id="deptId" name="deptId" th:value="${pId}"
 								class="hidden">
 							<div class="form-group">
 								<label class="col-sm-3 control-label ">上级分类：</label>
@@ -26,8 +26,8 @@
 										class="form-control" type="text">
 								</div>
 							</div>
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label">公司：</label>
+                            <div class="form-group" th:if="${sysDept.parentId==0}">
+                                <label class="col-sm-3 control-label">所属公司：</label>
                                 <div class="col-sm-8">
                                     <input id="srcId" name="srcId" class="hidden">
                                     <input id="srcName" name="srcName" class="form-control" type="text"
@@ -36,13 +36,13 @@
                                            readonly="readonly" placeholder="所属公司">
                                 </div>
                             </div>
-							<!--<div class="form-group" th:if="${sysDept.parentId==0}">-->
-								<!--<label class="col-sm-3 control-label">所属公司：</label>-->
-								<!--<div class="col-sm-8">-->
-									<!--<input id="srcName" name="srcName" th:value="${sysDept.srcName}"-->
-										<!--class="form-control" type="text" readonly>-->
-								<!--</div>-->
-							<!--</div>-->
+							<div class="form-group" th:if="${sysDept.parentId!=0}">
+								<label class="col-sm-3 control-label">所属公司：</label>
+								<div class="col-sm-8">
+									<input id="srcName" name="srcName" th:value="${sysDept.srcName}"
+                                           style="cursor: pointer;" class="form-control" type="text" readonly>
+								</div>
+							</div>
 							<div class="form-group">
 								<div class="col-sm-8 col-sm-offset-3">
 									<button type="submit" class="btn btn-primary">提交</button>

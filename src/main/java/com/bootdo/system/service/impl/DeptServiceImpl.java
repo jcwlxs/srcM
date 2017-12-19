@@ -86,6 +86,7 @@ public class DeptServiceImpl implements DeptService {
         }
         // 默认顶级菜单为０，根据数据库实际情况调整
         Tree<DeptDO> t = BuildTree.build(trees);
+        t.setText(srcService.get(srcId).getName());
         return t;
     }
 

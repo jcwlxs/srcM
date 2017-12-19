@@ -100,7 +100,8 @@
         if (!offset) offset = 0;
         if (!limit) limit = 20;
         $.get('src/list?offset=' + offset + '&limit=' + limit + search, function (data, status) {
-            var rows = data.rows;
+            var rows =[];
+            rows=data.rows;
             for (var i = 0; i < rows.length; i++) {
                 $('#demo').append('<div class="logo">' +
                     '<img src="' + rows[i].imgUrl + '"/>' +

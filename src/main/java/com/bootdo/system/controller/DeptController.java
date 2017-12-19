@@ -53,17 +53,18 @@ public class DeptController extends BaseController {
         return sysDeptList;
     }
 
-    @GetMapping("/add/{pId}")
-    @RequiresPermissions("system:sysDept:add")
-    String add(@PathVariable("pId") Long pId, Model model) {
-        model.addAttribute("pId", pId);
-        if (pId == 0) {
-            model.addAttribute("pName", "根目录");
-        } else {
-            model.addAttribute("dept",sysDeptService.get(pId));
-        }
-        return prefix + "/add";
-    }
+	@GetMapping("/add/{pId}")
+	@RequiresPermissions("system:sysDept:add")
+	public String add(@PathVariable("pId") Long pId, Model model) {
+		model.addAttribute("pId", pId);
+		if (pId == 0) {
+			model.addAttribute("pName", "根目录");
+		} else {
+			model.addAttribute("pName", sysDeptService.get(pId).getName());
+			model.addAttribute("dept", sysDeptService.get(pId));
+		}
+		return  prefix + "/add";
+	}
 
     @GetMapping("/edit/{deptId}")
     @RequiresPermissions("system:sysDept:edit")
