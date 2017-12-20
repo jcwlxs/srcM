@@ -36,7 +36,7 @@ public class FileController extends BaseController {
 
 	@GetMapping()
 	@RequiresPermissions("common:sysFile:sysFile")
-	String sysFile(Model model) {
+	public String sysFile(Model model) {
 		Map<String, Object> params = new HashMap<>(16);
 		return "common/file/file";
 	}
@@ -61,7 +61,7 @@ public class FileController extends BaseController {
 
 	@GetMapping("/edit")
 	// @RequiresPermissions("common:bComments")
-	String edit(Long id, Model model) {
+	public String edit(Long id, Model model) {
 		FileDO sysFile = sysFileService.get(id);
 		model.addAttribute("sysFile", sysFile);
 		return "common/sysFile/edit";
@@ -133,7 +133,7 @@ public class FileController extends BaseController {
 
 	@ResponseBody
 	@PostMapping("/upload")
-	R upload(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
+	public R upload(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
 		String fileName = file.getOriginalFilename();
 		fileName = FileUtil.renameToUUID(fileName);
 		FileDO sysFile = new FileDO(FileType.fileType(fileName), "/files/" + fileName, new Date());
