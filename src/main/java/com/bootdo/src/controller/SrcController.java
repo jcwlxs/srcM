@@ -126,12 +126,13 @@ public class SrcController {
     @ResponseBody
     public Tree<DeptDO> tree(@RequestParam(required = false) Long srcId) {
         System.err.println("ID:"+srcId);
-        return deptService.getTree(srcId);
+        Tree<DeptDO> tree = deptService.getTree(srcId);
+        return tree;
     }
 
     @GetMapping("/treeView")
     public String treeView(@RequestParam(required = false) Long srcId,Model model) {
         model.addAttribute("srcId",srcId);
-        return "/treeView";
+        return "treeView";
     }
 }

@@ -14,22 +14,24 @@
 </div>
 <div th:include="include :: footer"></div>
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function () {
         getTreeData($('#srcId').val())
     });
+
     function getTreeData(srcId) {
         $.ajax({
-            type : "GET",
-            url : "/src/tree?srcId="+srcId,
-            success : function(tree) {
+            type: "GET",
+            url: "/src/tree?srcId=" + srcId,
+            success: function (tree) {
                 loadTree(tree);
             }
         });
     }
+
     function loadTree(tree) {
         $('#jsTree').jstree({
-            'core' : {
-                'data' : tree
+            'core': {
+                'data': tree
             },
             // "plugins" : [ "checkbox" ]
         });

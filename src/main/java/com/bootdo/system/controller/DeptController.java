@@ -28,7 +28,6 @@ import java.util.Map;
 @Controller
 @RequestMapping("/system/sysDept")
 public class DeptController extends BaseController {
-    private String prefix = "system/dept";
     @Autowired
     private DeptService sysDeptService;
     @Autowired
@@ -36,12 +35,12 @@ public class DeptController extends BaseController {
 
     @GetMapping()
     public String dept() {
-        return prefix + "/dept";
+        return "system/dept/dept";
     }
 
     @GetMapping("deptSrc")
     public String deptSrc(Model model) {
-        model.addAttribute("srcList",srcService.list(null));
+        model.addAttribute("srcList", srcService.list(null));
         return "system/dept/deptSrc";
     }
 
@@ -53,22 +52,22 @@ public class DeptController extends BaseController {
         return sysDeptList;
     }
 
-	@GetMapping("/add/{pId}")
-	@RequiresPermissions("system:sysDept:add")
-	public String add(@PathVariable("pId") Long pId, Model model) {
-		model.addAttribute("pId", pId);
-		if (pId == 0) {
-			model.addAttribute("pName", "根目录");
-		} else {
-			model.addAttribute("pName", sysDeptService.get(pId).getName());
-			model.addAttribute("dept", sysDeptService.get(pId));
-		}
-		return  prefix + "/add";
-	}
+    @GetMapping("/add/{pId}")
+    @RequiresPermissions("system:sysDept:add")
+    public String add(@PathVariable("pId") Long pId, Model model) {
+        model.addAttribute("pId", pId);
+        if (pId == 0) {
+            model.addAttribute("pName", "根目录");
+        } else {
+            model.addAttribute("pName", sysDeptService.get(pId).getName());
+            model.addAttribute("dept", sysDeptService.get(pId));
+        }
+        return "system/dept/add";
+    }
 
     @GetMapping("/edit/{deptId}")
     @RequiresPermissions("system:sysDept:edit")
-    String edit(@PathVariable("deptId") Long deptId, Model model) {
+    public String edit(@PathVariable("deptId") Long deptId, Model model) {
         DeptDO sysDept = sysDeptService.get(deptId);
         model.addAttribute("sysDept", sysDept);
         if (Constant.DEPT_ROOT_ID.equals(sysDept.getParentId())) {
@@ -77,7 +76,7 @@ public class DeptController extends BaseController {
             DeptDO parDept = sysDeptService.get(sysDept.getParentId());
             model.addAttribute("parentDeptName", parDept.getName());
         }
-        return prefix + "/edit";
+        return "system/dept/edit";
     }
 
     /**
@@ -113,20 +112,10 @@ public class DeptController extends BaseController {
     @ResponseBody
     @RequiresPermissions("system:sysDept:remove")
     public R remove(Long deptId) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("parentId", deptId);
-        if (sysDeptService.count(map) > 0) {//有下级部门，删除所有下级
-            DeptDO d1 = sysDeptService.get(deptId);
-            if (d1 != null) {
-//                delTree(deptId);
-//                return R.ok();
-                // todo 递归删除
-            }
-            return R.error(1, "包含下级部门,不允许修改");
-        } else {//没有下级部门，直接删除
-            sysDeptService.remove(deptId);
+        if (sysDeptService.remove(deptId) > 0) {
             return R.ok();
         }
+        return R.error();
     }
 
     /**
@@ -150,7 +139,7 @@ public class DeptController extends BaseController {
 
     @GetMapping("/treeView")
     public String treeView() {
-        return prefix + "/deptTree";
+        return "system/dept/deptTree";
     }
 
 }

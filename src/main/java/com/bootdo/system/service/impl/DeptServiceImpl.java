@@ -55,12 +55,37 @@ public class DeptServiceImpl implements DeptService {
 
     @Override
     public int update(DeptDO sysDept) {
-        return sysDeptMapper.update(sysDept);
+        //更新本级分类
+        int update = sysDeptMapper.update(sysDept);
+        //更新所有子分类srcId
+        updateTree(sysDept);
+        return update;
+    }
+
+    //递归更新
+    private void updateTree(DeptDO root) {
+        sysDeptMapper.updateSrcOnly(root);
+        Map<String, Object> map = new HashMap<>();
+        Long deptId = root.getDeptId();
+        map.put("parentId", deptId);
+        sysDeptMapper.list(map).forEach(this::updateTree);
     }
 
     @Override
     public int remove(Long deptId) {
-        return sysDeptMapper.remove(deptId);
+        try {
+            removeTree(deptId);
+        } catch (Exception e) {
+            return 0;
+        }
+        return 1;
+    }
+
+    private void removeTree(Long rootId) {
+        sysDeptMapper.remove(rootId);
+        Map<String, Object> map = new HashMap<>();
+        map.put("parentId", rootId);
+        sysDeptMapper.list(map).forEach(e -> removeTree(e.getDeptId()));
     }
 
     @Override
@@ -86,7 +111,9 @@ public class DeptServiceImpl implements DeptService {
         }
         // 默认顶级菜单为０，根据数据库实际情况调整
         Tree<DeptDO> t = BuildTree.build(trees);
-        t.setText(srcService.get(srcId).getName());
+        SrcDO srcDO = srcService.get(srcId);
+        if (srcDO != null)//设置根节点为公司名
+            t.setText(srcDO.getName());
         return t;
     }
 
@@ -95,7 +122,7 @@ public class DeptServiceImpl implements DeptService {
         // TODO Auto-generated method stub
         //查询部门以及此部门的下级部门
         int result = sysDeptMapper.getDeptUserNumber(deptId);
-        return result == 0 ? true : false;
+        return result == 0;
     }
 
 }

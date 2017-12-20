@@ -37,22 +37,21 @@ public class BuildTree {
 
 		}
 
-		Tree<T> root = new Tree<T>();
+		Tree<T> root = new Tree<>();
 		if (topNodes.size() == 1) {
-			root = topNodes.get(0);
-		} else {
+			root.setChildren(topNodes);
+            root.setChildren(true);
+        } else {
 			root.setId("-1");
 			root.setParentId("");
 			root.setHasParent(false);
 			root.setChildren(true);
-			root.setChecked(true);
 			root.setChildren(topNodes);
-			root.setText("无");
 			Map<String, Object> state = new HashMap<>(16);
 			state.put("opened", true);
 			root.setState(state);
 		}
-
+        root.setChecked(true);
 		return root;
 	}
 

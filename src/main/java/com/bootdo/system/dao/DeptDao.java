@@ -25,7 +25,7 @@ public interface DeptDao {
 	int save(DeptDO dept);
 	
 	int update(DeptDO dept);
-	
+
 	int remove(Long deptId);
 	
 	int batchRemove(Long[] deptIds);
@@ -33,4 +33,6 @@ public interface DeptDao {
 	Long[] listParentDept();
 	
 	int getDeptUserNumber(Long deptId);
+
+    void updateSrcOnly(DeptDO deptDO);
 }
