@@ -26,9 +26,10 @@
                                 <input required id="name" name="name" class="form-control" type="text">
                             </div>
                         </div>
-                        <div class="form-group" th:if="${pId!=0}">
+                        <div class="form-group" th:if="${pId!=0&&dept!=null}">
                             <label class="col-sm-3 control-label">公司：</label>
                             <div class="col-sm-8">
+                                <!--/*@thymesVar id="dept" type="com.bootdo.system.domain.DeptDO"*/-->
                                 <input id="srcId" name="srcId" class="hidden" th:value="${dept.srcId}">
                                 <input id="srcName" name="srcName" class="form-control" type="text"
                                        style="cursor: pointer;" th:value="${dept.srcName}"
