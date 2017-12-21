@@ -1,5 +1,5 @@
 bootdo:
-  uploadPath: D:/var/uploaded_files/
+  uploadPath: /var/uploaded_files/
 logging:
   level:
     com.bootdo: debug
@@ -30,5 +30,7 @@ spring:
     filters: stat,wall,slf4j
     # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+server:
+  port: 8080
     # 合并多个DruidDataSource的监控数据
     #useGlobalDataSourceStat: true
