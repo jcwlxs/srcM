@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : local
-Source Server Version : 50713
-Source Host           : localhost:3306
+Source Server         : centos
+Source Server Version : 50720
+Source Host           : 120.78.212.71:3306
 Source Database       : bootdo
 
 Target Server Type    : MYSQL
-Target Server Version : 50713
+Target Server Version : 50720
 File Encoding         : 65001
 
-Date: 2017-12-19 17:45:09
+Date: 2017-12-21 12:55:25
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -28,7 +28,7 @@ CREATE TABLE `bus_src` (
   `gmt_create` datetime DEFAULT NULL,
   `gmt_modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COMMENT='SRC厂商';
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COMMENT='SRC厂商';
 
 -- ----------------------------
 -- Records of bus_src
@@ -43,7 +43,7 @@ INSERT INTO `bus_src` VALUES ('15', 'BBC', 'https://ss0.bdstatic.com/70cFvHSh_Q1
 INSERT INTO `bus_src` VALUES ('16', '嗯哼', 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=248737136,3306781606&fm=27&gp=0.jpg', 'asd', 'sdfsgsf', null, '2017-12-19 16:44:18');
 INSERT INTO `bus_src` VALUES ('17', '哟呵', 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2656666713,2261618928&fm=27&gp=0.jpg', 'asd', 'sdfsgsf', null, '2017-12-19 16:44:07');
 INSERT INTO `bus_src` VALUES ('18', '哈哈', 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=67402683,2278464488&fm=27&gp=0.jpg', 'asd', 'sdfsgsf', null, '2017-12-19 16:43:56');
-INSERT INTO `bus_src` VALUES ('19', '嘻嘻', 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3198980038,3561311141&fm=27&gp=0.jpg', 'asd', 'sdfsgsf', null, '2017-12-19 16:43:47');
+INSERT INTO `bus_src` VALUES ('19', '嘻嘻', 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3198980038,3561311141&fm=27&gp=0.jpg', 'https://www.baidu.com', 'sdfsgsf', null, '2017-12-21 12:49:00');
 
 -- ----------------------------
 -- Table structure for sys_dept
@@ -57,11 +57,17 @@ CREATE TABLE `sys_dept` (
   `del_flag` tinyint(4) DEFAULT '0' COMMENT '是否删除  -1：已删除  0：正常',
   `src_id` mediumtext NOT NULL,
   PRIMARY KEY (`dept_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COMMENT='部门管理';
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8 COMMENT='部门管理';
 
 -- ----------------------------
 -- Records of sys_dept
 -- ----------------------------
+INSERT INTO `sys_dept` VALUES ('23', '0', 'Test', null, null, '12');
+INSERT INTO `sys_dept` VALUES ('24', '0', 'asdass', null, null, '16');
+INSERT INTO `sys_dept` VALUES ('40', '0', 'asdas', null, null, '9');
+INSERT INTO `sys_dept` VALUES ('41', '0', 'asdas', null, null, '9');
+INSERT INTO `sys_dept` VALUES ('42', '0', '测试', null, null, '18');
+INSERT INTO `sys_dept` VALUES ('43', '0', '啦啦啦', null, null, '19');
 
 -- ----------------------------
 -- Table structure for sys_dict
@@ -82,9 +88,9 @@ CREATE TABLE `sys_dict` (
   `remarks` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '备注信息',
   `del_flag` char(1) COLLATE utf8_bin DEFAULT '0' COMMENT '删除标记',
   PRIMARY KEY (`id`),
-  KEY `sys_dict_value` (`value`),
-  KEY `sys_dict_label` (`name`),
-  KEY `sys_dict_del_flag` (`del_flag`)
+  KEY `sys_dict_value` (`value`) USING BTREE,
+  KEY `sys_dict_label` (`name`) USING BTREE,
+  KEY `sys_dict_del_flag` (`del_flag`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=114 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='字典表';
 
 -- ----------------------------
@@ -210,12 +216,20 @@ CREATE TABLE `sys_file` (
   `url` varchar(200) DEFAULT NULL COMMENT 'URL地址',
   `create_date` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=150 DEFAULT CHARSET=utf8 COMMENT='文件上传';
+) ENGINE=InnoDB AUTO_INCREMENT=158 DEFAULT CHARSET=utf8 COMMENT='文件上传';
 
 -- ----------------------------
 -- Records of sys_file
 -- ----------------------------
 INSERT INTO `sys_file` VALUES ('149', '0', '/files/d6fec442-8382-401a-ba77-4d6b34a074fc.jpg', '2017-12-18 14:33:40');
+INSERT INTO `sys_file` VALUES ('150', '0', '/files/8751a517-afc3-4587-9b7e-2e0ea030244b.jpg', '2017-12-20 22:36:59');
+INSERT INTO `sys_file` VALUES ('151', '0', '/files/7464b840-8cdc-4140-9728-dd1986569aad.jpg', '2017-12-20 22:37:15');
+INSERT INTO `sys_file` VALUES ('152', '0', '/files/a797acce-c572-4b91-a748-f5048efea978.jpg', '2017-12-20 23:44:15');
+INSERT INTO `sys_file` VALUES ('153', '0', '/files/eea5641a-e5bf-4ad2-bd43-eeda1cc924f3.jpg', '2017-12-20 23:47:52');
+INSERT INTO `sys_file` VALUES ('154', '0', '/files/dac0451c-2371-4101-b2da-66d62487ba14.jpg', '2017-12-20 23:52:53');
+INSERT INTO `sys_file` VALUES ('155', '0', '/files/f3fca8f2-cd73-4cfe-979d-2da14005bd2b.jpg', '2017-12-21 00:07:18');
+INSERT INTO `sys_file` VALUES ('156', '0', '/files/c8eb2e09-a42d-4f83-93cd-b6476618c55c.jpg', '2017-12-21 00:09:22');
+INSERT INTO `sys_file` VALUES ('157', '0', '/files/831da362-ed17-4e15-820d-bb33d6c53505.jpg', '2017-12-21 00:11:10');
 
 -- ----------------------------
 -- Table structure for sys_log
@@ -232,7 +246,7 @@ CREATE TABLE `sys_log` (
   `ip` varchar(64) DEFAULT NULL COMMENT 'IP地址',
   `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8308 DEFAULT CHARSET=utf8 COMMENT='系统日志';
+) ENGINE=InnoDB AUTO_INCREMENT=8486 DEFAULT CHARSET=utf8 COMMENT='系统日志';
 
 -- ----------------------------
 -- Records of sys_log
@@ -589,6 +603,184 @@ INSERT INTO `sys_log` VALUES ('8304', '1', 'admin', '添加菜单', '0', 'com.bo
 INSERT INTO `sys_log` VALUES ('8305', '1', 'admin', '编辑菜单', '10', 'com.bootdo.system.controller.MenuController.edit()', null, '127.0.0.1', '2017-12-19 15:39:10');
 INSERT INTO `sys_log` VALUES ('8306', '1', 'admin', '编辑用户', '25', 'com.bootdo.system.controller.UserController.edit()', null, '127.0.0.1', '2017-12-19 15:39:18');
 INSERT INTO `sys_log` VALUES ('8307', '1', 'admin', '请求访问主页', '12', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-19 15:54:28');
+INSERT INTO `sys_log` VALUES ('8308', '1', 'admin', '登录', '54', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '127.0.0.1', '2017-12-19 19:53:38');
+INSERT INTO `sys_log` VALUES ('8309', '1', 'admin', '请求访问主页', '57', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-19 19:53:39');
+INSERT INTO `sys_log` VALUES ('8310', '-1', '获取用户信息为空', '登录', '10', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '115.193.170.250', '2017-12-19 22:07:15');
+INSERT INTO `sys_log` VALUES ('8311', '1', 'admin', '登录', '10', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '115.193.170.250', '2017-12-19 22:07:20');
+INSERT INTO `sys_log` VALUES ('8312', '1', 'admin', '请求访问主页', '198', 'com.bootdo.system.controller.LoginController.index()', null, '115.193.170.250', '2017-12-19 22:07:20');
+INSERT INTO `sys_log` VALUES ('8313', '1', 'admin', '登录', '19', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '115.193.170.250', '2017-12-19 22:13:53');
+INSERT INTO `sys_log` VALUES ('8314', '1', 'admin', '请求访问主页', '144', 'com.bootdo.system.controller.LoginController.index()', null, '115.193.170.250', '2017-12-19 22:13:53');
+INSERT INTO `sys_log` VALUES ('8315', '1', 'admin', '登录', '4', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '115.193.170.250', '2017-12-19 22:14:05');
+INSERT INTO `sys_log` VALUES ('8316', '1', 'admin', '请求访问主页', '12', 'com.bootdo.system.controller.LoginController.index()', null, '115.193.170.250', '2017-12-19 22:14:05');
+INSERT INTO `sys_log` VALUES ('8317', '1', 'admin', '登录', '19', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '115.193.170.250', '2017-12-19 22:48:43');
+INSERT INTO `sys_log` VALUES ('8318', '1', 'admin', '请求访问主页', '140', 'com.bootdo.system.controller.LoginController.index()', null, '115.193.170.250', '2017-12-19 22:48:43');
+INSERT INTO `sys_log` VALUES ('8319', '1', 'admin', '登录', '50', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '127.0.0.1', '2017-12-19 23:06:38');
+INSERT INTO `sys_log` VALUES ('8320', '1', 'admin', '请求访问主页', '285', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-19 23:06:38');
+INSERT INTO `sys_log` VALUES ('8321', '-1', '获取用户信息为空', '登录', '26', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '39.189.49.83', '2017-12-20 10:39:18');
+INSERT INTO `sys_log` VALUES ('8322', '1', 'admin', '登录', '14', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '39.189.49.83', '2017-12-20 10:39:22');
+INSERT INTO `sys_log` VALUES ('8323', '1', 'admin', '请求访问主页', '101', 'com.bootdo.system.controller.LoginController.index()', null, '39.189.49.83', '2017-12-20 10:39:22');
+INSERT INTO `sys_log` VALUES ('8324', '1', 'admin', '登录', '89', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '127.0.0.1', '2017-12-20 10:50:31');
+INSERT INTO `sys_log` VALUES ('8325', '1', 'admin', '请求访问主页', '335', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-20 10:50:32');
+INSERT INTO `sys_log` VALUES ('8326', '1', 'admin', '请求访问主页', '9', 'com.bootdo.system.controller.LoginController.index()', null, '39.189.49.83', '2017-12-20 10:50:33');
+INSERT INTO `sys_log` VALUES ('8327', '1', 'admin', '请求访问主页', '15', 'com.bootdo.system.controller.LoginController.index()', null, '39.189.49.83', '2017-12-20 11:07:43');
+INSERT INTO `sys_log` VALUES ('8328', '1', 'admin', '请求访问主页', '15', 'com.bootdo.system.controller.LoginController.index()', null, '39.189.49.83', '2017-12-20 11:22:26');
+INSERT INTO `sys_log` VALUES ('8329', '-1', '获取用户信息为空', '登录', '3', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '115.204.155.185', '2017-12-20 11:22:38');
+INSERT INTO `sys_log` VALUES ('8330', '1', 'admin', '登录', '2', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '115.204.155.185', '2017-12-20 11:22:42');
+INSERT INTO `sys_log` VALUES ('8331', '1', 'admin', '请求访问主页', '7', 'com.bootdo.system.controller.LoginController.index()', null, '115.204.155.185', '2017-12-20 11:22:42');
+INSERT INTO `sys_log` VALUES ('8332', '1', 'admin', '登录', '13', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '115.204.155.185', '2017-12-20 11:28:36');
+INSERT INTO `sys_log` VALUES ('8333', '1', 'admin', '请求访问主页', '4', 'com.bootdo.system.controller.LoginController.index()', null, '115.204.155.185', '2017-12-20 11:28:36');
+INSERT INTO `sys_log` VALUES ('8334', '1', 'admin', '登录', '9', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '115.204.155.185', '2017-12-20 11:32:50');
+INSERT INTO `sys_log` VALUES ('8335', '1', 'admin', '请求访问主页', '95', 'com.bootdo.system.controller.LoginController.index()', null, '115.204.155.185', '2017-12-20 11:32:50');
+INSERT INTO `sys_log` VALUES ('8336', '1', 'admin', '登录', '5', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '39.189.49.83', '2017-12-20 11:33:05');
+INSERT INTO `sys_log` VALUES ('8337', '1', 'admin', '请求访问主页', '12', 'com.bootdo.system.controller.LoginController.index()', null, '39.189.49.83', '2017-12-20 11:33:05');
+INSERT INTO `sys_log` VALUES ('8338', '1', 'admin', '登录', '4', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '39.189.49.83', '2017-12-20 11:34:20');
+INSERT INTO `sys_log` VALUES ('8339', '1', 'admin', '请求访问主页', '9', 'com.bootdo.system.controller.LoginController.index()', null, '39.189.49.83', '2017-12-20 11:34:20');
+INSERT INTO `sys_log` VALUES ('8340', '1', 'admin', '请求访问主页', '8', 'com.bootdo.system.controller.LoginController.index()', null, '39.189.49.83', '2017-12-20 11:46:51');
+INSERT INTO `sys_log` VALUES ('8341', '1', 'admin', '请求访问主页', '36', 'com.bootdo.system.controller.LoginController.index()', null, '39.189.49.83', '2017-12-20 12:07:01');
+INSERT INTO `sys_log` VALUES ('8342', '1', 'admin', '请求访问主页', '8', 'com.bootdo.system.controller.LoginController.index()', null, '39.189.49.83', '2017-12-20 12:07:46');
+INSERT INTO `sys_log` VALUES ('8343', '1', 'admin', '请求访问主页', '14', 'com.bootdo.system.controller.LoginController.index()', null, '39.189.49.83', '2017-12-20 12:08:11');
+INSERT INTO `sys_log` VALUES ('8344', '1', 'admin', '请求访问主页', '11', 'com.bootdo.system.controller.LoginController.index()', null, '39.189.49.83', '2017-12-20 12:16:17');
+INSERT INTO `sys_log` VALUES ('8345', '1', 'admin', '请求访问主页', '13', 'com.bootdo.system.controller.LoginController.index()', null, '39.189.49.83', '2017-12-20 12:19:29');
+INSERT INTO `sys_log` VALUES ('8346', '1', 'admin', '登录', '3', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '39.189.49.83', '2017-12-20 12:35:29');
+INSERT INTO `sys_log` VALUES ('8347', '1', 'admin', '请求访问主页', '7', 'com.bootdo.system.controller.LoginController.index()', null, '39.189.49.83', '2017-12-20 12:35:29');
+INSERT INTO `sys_log` VALUES ('8348', '1', 'admin', '请求访问主页', '8', 'com.bootdo.system.controller.LoginController.index()', null, '39.189.49.83', '2017-12-20 12:42:32');
+INSERT INTO `sys_log` VALUES ('8349', '1', 'admin', '请求访问主页', '9', 'com.bootdo.system.controller.LoginController.index()', null, '39.189.49.83', '2017-12-20 12:46:16');
+INSERT INTO `sys_log` VALUES ('8350', '1', 'admin', '请求访问主页', '20', 'com.bootdo.system.controller.LoginController.index()', null, '39.189.49.83', '2017-12-20 12:47:30');
+INSERT INTO `sys_log` VALUES ('8351', '1', 'admin', '请求访问主页', '5', 'com.bootdo.system.controller.LoginController.index()', null, '39.189.49.83', '2017-12-20 12:48:26');
+INSERT INTO `sys_log` VALUES ('8352', '1', 'admin', '请求访问主页', '5', 'com.bootdo.system.controller.LoginController.index()', null, '39.189.49.83', '2017-12-20 12:49:48');
+INSERT INTO `sys_log` VALUES ('8353', '1', 'admin', '请求访问主页', '5', 'com.bootdo.system.controller.LoginController.index()', null, '39.189.49.83', '2017-12-20 13:22:25');
+INSERT INTO `sys_log` VALUES ('8354', '1', 'admin', '登录', '49', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '127.0.0.1', '2017-12-20 13:25:50');
+INSERT INTO `sys_log` VALUES ('8355', '1', 'admin', '请求访问主页', '293', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-20 13:25:51');
+INSERT INTO `sys_log` VALUES ('8356', '1', 'admin', '请求访问主页', '9', 'com.bootdo.system.controller.LoginController.index()', null, '39.189.49.83', '2017-12-20 13:26:21');
+INSERT INTO `sys_log` VALUES ('8357', '1', 'admin', '登录', '42', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '127.0.0.1', '2017-12-20 14:22:16');
+INSERT INTO `sys_log` VALUES ('8358', '1', 'admin', '请求访问主页', '266', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-20 14:22:16');
+INSERT INTO `sys_log` VALUES ('8359', '1', 'admin', '登录', '42', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '127.0.0.1', '2017-12-20 14:22:29');
+INSERT INTO `sys_log` VALUES ('8360', '1', 'admin', '登录', '42', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '127.0.0.1', '2017-12-20 14:22:31');
+INSERT INTO `sys_log` VALUES ('8361', '1', 'admin', '登录', '41', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '127.0.0.1', '2017-12-20 14:22:33');
+INSERT INTO `sys_log` VALUES ('8362', '1', 'admin', '请求访问主页', '260', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-20 14:32:20');
+INSERT INTO `sys_log` VALUES ('8363', '1', 'admin', '登录', '48', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '127.0.0.1', '2017-12-20 15:17:59');
+INSERT INTO `sys_log` VALUES ('8364', '1', 'admin', '请求访问主页', '304', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-20 15:17:59');
+INSERT INTO `sys_log` VALUES ('8365', '1', 'admin', '登录', '41', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '127.0.0.1', '2017-12-20 15:28:35');
+INSERT INTO `sys_log` VALUES ('8366', '1', 'admin', '请求访问主页', '244', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-20 15:28:36');
+INSERT INTO `sys_log` VALUES ('8367', '1', 'admin', '登录', '39', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '127.0.0.1', '2017-12-20 15:28:48');
+INSERT INTO `sys_log` VALUES ('8368', '1', 'admin', '请求访问主页', '242', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-20 15:28:51');
+INSERT INTO `sys_log` VALUES ('8369', '1', 'admin', '登录', '53', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '127.0.0.1', '2017-12-20 16:08:23');
+INSERT INTO `sys_log` VALUES ('8370', '1', 'admin', '请求访问主页', '303', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-20 16:08:23');
+INSERT INTO `sys_log` VALUES ('8371', '1', 'admin', '登录', '116', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '127.0.0.1', '2017-12-20 16:08:23');
+INSERT INTO `sys_log` VALUES ('8372', '1', 'admin', '登录', '40', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '127.0.0.1', '2017-12-20 16:08:40');
+INSERT INTO `sys_log` VALUES ('8373', '1', 'admin', '请求访问主页', '278', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-20 16:09:01');
+INSERT INTO `sys_log` VALUES ('8374', '1', 'admin', '请求访问主页', '19258', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-20 16:16:25');
+INSERT INTO `sys_log` VALUES ('8375', '1', 'admin', '登录', '47', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '127.0.0.1', '2017-12-20 16:21:12');
+INSERT INTO `sys_log` VALUES ('8376', '1', 'admin', '请求访问主页', '290', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-20 16:21:12');
+INSERT INTO `sys_log` VALUES ('8377', '1', 'admin', '登录', '2', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '39.189.49.83', '2017-12-20 16:28:15');
+INSERT INTO `sys_log` VALUES ('8378', '1', 'admin', '请求访问主页', '8', 'com.bootdo.system.controller.LoginController.index()', null, '39.189.49.83', '2017-12-20 16:28:15');
+INSERT INTO `sys_log` VALUES ('8379', '1', 'admin', '请求访问主页', '52', 'com.bootdo.system.controller.LoginController.index()', null, '39.189.49.83', '2017-12-20 16:30:58');
+INSERT INTO `sys_log` VALUES ('8380', '1', 'admin', '登录', '47', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '127.0.0.1', '2017-12-20 16:35:22');
+INSERT INTO `sys_log` VALUES ('8381', '1', 'admin', '请求访问主页', '285', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-20 16:35:23');
+INSERT INTO `sys_log` VALUES ('8382', '1', 'admin', '请求访问主页', '254', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-20 16:35:44');
+INSERT INTO `sys_log` VALUES ('8383', '1', 'admin', '请求访问主页', '252', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-20 16:37:26');
+INSERT INTO `sys_log` VALUES ('8384', '1', 'admin', '登录', '53', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '127.0.0.1', '2017-12-20 16:39:04');
+INSERT INTO `sys_log` VALUES ('8385', '1', 'admin', '请求访问主页', '314', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-20 16:39:04');
+INSERT INTO `sys_log` VALUES ('8386', '1', 'admin', '登录', '1', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '39.189.49.83', '2017-12-20 16:43:55');
+INSERT INTO `sys_log` VALUES ('8387', '1', 'admin', '请求访问主页', '7', 'com.bootdo.system.controller.LoginController.index()', null, '39.189.49.83', '2017-12-20 16:43:55');
+INSERT INTO `sys_log` VALUES ('8388', '1', 'admin', '登录', '49', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '127.0.0.1', '2017-12-20 16:58:52');
+INSERT INTO `sys_log` VALUES ('8389', '1', 'admin', '请求访问主页', '309', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-20 16:58:52');
+INSERT INTO `sys_log` VALUES ('8390', '1', 'admin', '登录', '42', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '127.0.0.1', '2017-12-20 16:59:06');
+INSERT INTO `sys_log` VALUES ('8391', '1', 'admin', '登录', '43', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '127.0.0.1', '2017-12-20 16:59:07');
+INSERT INTO `sys_log` VALUES ('8392', '1', 'admin', '登录', '54', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '127.0.0.1', '2017-12-20 17:03:44');
+INSERT INTO `sys_log` VALUES ('8393', '1', 'admin', '请求访问主页', '295', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-20 17:03:44');
+INSERT INTO `sys_log` VALUES ('8394', '1', 'admin', '登录', '50', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '127.0.0.1', '2017-12-20 17:15:57');
+INSERT INTO `sys_log` VALUES ('8395', '1', 'admin', '请求访问主页', '303', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-20 17:15:58');
+INSERT INTO `sys_log` VALUES ('8396', '1', 'admin', '登录', '59', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '127.0.0.1', '2017-12-20 17:21:43');
+INSERT INTO `sys_log` VALUES ('8397', '1', 'admin', '请求访问主页', '316', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-20 17:21:44');
+INSERT INTO `sys_log` VALUES ('8398', '1', 'admin', '请求访问主页', '316', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-20 17:24:22');
+INSERT INTO `sys_log` VALUES ('8399', '1', 'admin', '登录', '43', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '127.0.0.1', '2017-12-20 17:57:25');
+INSERT INTO `sys_log` VALUES ('8400', '1', 'admin', '请求访问主页', '271', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-20 17:57:26');
+INSERT INTO `sys_log` VALUES ('8401', '1', 'admin', '登录', '43', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '127.0.0.1', '2017-12-20 17:57:42');
+INSERT INTO `sys_log` VALUES ('8402', '1', 'admin', '登录', '41', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '127.0.0.1', '2017-12-20 18:09:33');
+INSERT INTO `sys_log` VALUES ('8403', '1', 'admin', '请求访问主页', '292', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-20 18:09:33');
+INSERT INTO `sys_log` VALUES ('8404', '1', 'admin', '请求访问主页', '313', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-20 18:21:12');
+INSERT INTO `sys_log` VALUES ('8405', '1', 'admin', '请求访问主页', '291', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-20 18:22:28');
+INSERT INTO `sys_log` VALUES ('8406', '1', 'admin', '登录', '48', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '127.0.0.1', '2017-12-20 19:07:56');
+INSERT INTO `sys_log` VALUES ('8407', '1', 'admin', '请求访问主页', '286', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-20 19:07:56');
+INSERT INTO `sys_log` VALUES ('8408', '1', 'admin', '登录', '53', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '127.0.0.1', '2017-12-20 19:29:03');
+INSERT INTO `sys_log` VALUES ('8409', '1', 'admin', '请求访问主页', '337', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-20 19:29:03');
+INSERT INTO `sys_log` VALUES ('8410', '1', 'admin', '登录', '42', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '127.0.0.1', '2017-12-20 19:47:22');
+INSERT INTO `sys_log` VALUES ('8411', '1', 'admin', '请求访问主页', '273', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-20 19:47:23');
+INSERT INTO `sys_log` VALUES ('8412', '1', 'admin', '登录', '41', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '127.0.0.1', '2017-12-20 19:50:25');
+INSERT INTO `sys_log` VALUES ('8413', '1', 'admin', '请求访问主页', '268', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-20 19:50:25');
+INSERT INTO `sys_log` VALUES ('8414', '1', 'admin', '请求访问主页', '281', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-20 20:00:03');
+INSERT INTO `sys_log` VALUES ('8415', '1', 'admin', '登录', '39', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '127.0.0.1', '2017-12-20 20:01:31');
+INSERT INTO `sys_log` VALUES ('8416', '1', 'admin', '请求访问主页', '281', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-20 20:01:31');
+INSERT INTO `sys_log` VALUES ('8417', '1', 'admin', '请求访问主页', '782', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-20 20:14:44');
+INSERT INTO `sys_log` VALUES ('8418', '1', 'admin', '请求访问主页', '19173', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-20 20:15:00');
+INSERT INTO `sys_log` VALUES ('8419', '1', 'admin', '登录', '48', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '127.0.0.1', '2017-12-20 20:46:10');
+INSERT INTO `sys_log` VALUES ('8420', '1', 'admin', '请求访问主页', '302', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-20 20:46:11');
+INSERT INTO `sys_log` VALUES ('8421', '1', 'admin', '登录', '47', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '127.0.0.1', '2017-12-20 20:57:22');
+INSERT INTO `sys_log` VALUES ('8422', '1', 'admin', '请求访问主页', '276', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-20 20:57:22');
+INSERT INTO `sys_log` VALUES ('8423', '1', 'admin', '登录', '11', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '115.193.170.250', '2017-12-20 20:59:18');
+INSERT INTO `sys_log` VALUES ('8424', '1', 'admin', '请求访问主页', '50', 'com.bootdo.system.controller.LoginController.index()', null, '115.193.170.250', '2017-12-20 20:59:18');
+INSERT INTO `sys_log` VALUES ('8425', '1', 'admin', '登录', '8', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '115.193.170.250', '2017-12-20 21:11:18');
+INSERT INTO `sys_log` VALUES ('8426', '1', 'admin', '请求访问主页', '170', 'com.bootdo.system.controller.LoginController.index()', null, '115.193.170.250', '2017-12-20 21:11:19');
+INSERT INTO `sys_log` VALUES ('8427', '1', 'admin', '登录', '3', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '39.189.49.83', '2017-12-20 21:12:51');
+INSERT INTO `sys_log` VALUES ('8428', '1', 'admin', '请求访问主页', '10', 'com.bootdo.system.controller.LoginController.index()', null, '39.189.49.83', '2017-12-20 21:12:51');
+INSERT INTO `sys_log` VALUES ('8429', '1', 'admin', '登录', '51', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '127.0.0.1', '2017-12-20 21:24:08');
+INSERT INTO `sys_log` VALUES ('8430', '1', 'admin', '请求访问主页', '298', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-20 21:24:09');
+INSERT INTO `sys_log` VALUES ('8431', '1', 'admin', '请求访问主页', '272', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-20 21:24:43');
+INSERT INTO `sys_log` VALUES ('8432', '1', 'admin', '请求访问主页', '308', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-20 21:25:48');
+INSERT INTO `sys_log` VALUES ('8433', '1', 'admin', '请求访问主页', '24', 'com.bootdo.system.controller.LoginController.index()', null, '122.234.63.253', '2017-12-20 21:26:25');
+INSERT INTO `sys_log` VALUES ('8434', '1', 'admin', '请求访问主页', '16', 'com.bootdo.system.controller.LoginController.index()', null, '39.189.49.83', '2017-12-20 21:34:08');
+INSERT INTO `sys_log` VALUES ('8435', '1', 'admin', '登录', '58', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '127.0.0.1', '2017-12-20 22:03:17');
+INSERT INTO `sys_log` VALUES ('8436', '1', 'admin', '请求访问主页', '250', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-20 22:03:17');
+INSERT INTO `sys_log` VALUES ('8437', '1', 'admin', '请求访问主页', '200', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-20 22:04:01');
+INSERT INTO `sys_log` VALUES ('8438', '1', 'admin', '登录', '47', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '127.0.0.1', '2017-12-20 22:27:16');
+INSERT INTO `sys_log` VALUES ('8439', '1', 'admin', '请求访问主页', '243', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-20 22:27:17');
+INSERT INTO `sys_log` VALUES ('8440', '1', 'admin', '登录', '45', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '127.0.0.1', '2017-12-20 22:34:57');
+INSERT INTO `sys_log` VALUES ('8441', '1', 'admin', '请求访问主页', '238', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-20 22:34:57');
+INSERT INTO `sys_log` VALUES ('8442', '1', 'admin', '登录', '57', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '127.0.0.1', '2017-12-20 22:43:18');
+INSERT INTO `sys_log` VALUES ('8443', '1', 'admin', '请求访问主页', '334', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-20 22:43:19');
+INSERT INTO `sys_log` VALUES ('8444', '1', 'admin', '登录', '91', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '127.0.0.1', '2017-12-20 22:51:03');
+INSERT INTO `sys_log` VALUES ('8445', '1', 'admin', '请求访问主页', '321', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-20 22:51:04');
+INSERT INTO `sys_log` VALUES ('8446', '1', 'admin', '请求访问主页', '19161', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-20 22:57:36');
+INSERT INTO `sys_log` VALUES ('8447', '1', 'admin', '登录', '60', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '127.0.0.1', '2017-12-20 23:40:03');
+INSERT INTO `sys_log` VALUES ('8448', '1', 'admin', '请求访问主页', '291', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-20 23:40:03');
+INSERT INTO `sys_log` VALUES ('8449', '1', 'admin', '请求访问主页', '231', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-20 23:49:30');
+INSERT INTO `sys_log` VALUES ('8450', '1', 'admin', '登录', '9', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '122.234.63.253', '2017-12-21 00:09:58');
+INSERT INTO `sys_log` VALUES ('8451', '1', 'admin', '请求访问主页', '75', 'com.bootdo.system.controller.LoginController.index()', null, '122.234.63.253', '2017-12-21 00:09:58');
+INSERT INTO `sys_log` VALUES ('8452', '1', 'admin', '登录', '45', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '127.0.0.1', '2017-12-21 00:12:28');
+INSERT INTO `sys_log` VALUES ('8453', '1', 'admin', '请求访问主页', '310', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-21 00:12:29');
+INSERT INTO `sys_log` VALUES ('8454', '1', 'admin', '登录', '42', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '127.0.0.1', '2017-12-21 00:56:20');
+INSERT INTO `sys_log` VALUES ('8455', '1', 'admin', '请求访问主页', '278', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-21 00:56:20');
+INSERT INTO `sys_log` VALUES ('8456', '1', 'admin', '登录', '4', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '39.189.51.222', '2017-12-21 11:37:49');
+INSERT INTO `sys_log` VALUES ('8457', '1', 'admin', '请求访问主页', '10', 'com.bootdo.system.controller.LoginController.index()', null, '39.189.51.222', '2017-12-21 11:37:49');
+INSERT INTO `sys_log` VALUES ('8458', '1', 'admin', '请求访问主页', '24', 'com.bootdo.system.controller.LoginController.index()', null, '39.189.51.222', '2017-12-21 11:40:50');
+INSERT INTO `sys_log` VALUES ('8459', '1', 'admin', '登录', '201', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '127.0.0.1', '2017-12-21 11:48:41');
+INSERT INTO `sys_log` VALUES ('8460', '1', 'admin', '请求访问主页', '331', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-21 11:48:41');
+INSERT INTO `sys_log` VALUES ('8461', '1', 'admin', '请求访问主页', '18', 'com.bootdo.system.controller.LoginController.index()', null, '39.189.51.222', '2017-12-21 11:52:10');
+INSERT INTO `sys_log` VALUES ('8462', '1', 'admin', '请求访问主页', '33', 'com.bootdo.system.controller.LoginController.index()', null, '39.189.51.222', '2017-12-21 11:54:16');
+INSERT INTO `sys_log` VALUES ('8463', '1', 'admin', '登录', '53', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '127.0.0.1', '2017-12-21 11:55:40');
+INSERT INTO `sys_log` VALUES ('8464', '1', 'admin', '请求访问主页', '337', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-21 11:55:41');
+INSERT INTO `sys_log` VALUES ('8465', '1', 'admin', '登录', '46', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '127.0.0.1', '2017-12-21 11:57:57');
+INSERT INTO `sys_log` VALUES ('8466', '1', 'admin', '请求访问主页', '302', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-21 11:57:57');
+INSERT INTO `sys_log` VALUES ('8467', '1', 'admin', '登录', '49', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '127.0.0.1', '2017-12-21 12:06:41');
+INSERT INTO `sys_log` VALUES ('8468', '1', 'admin', '请求访问主页', '316', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-21 12:06:41');
+INSERT INTO `sys_log` VALUES ('8469', '1', 'admin', '登录', '47', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '127.0.0.1', '2017-12-21 12:10:25');
+INSERT INTO `sys_log` VALUES ('8470', '1', 'admin', '请求访问主页', '285', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-21 12:10:26');
+INSERT INTO `sys_log` VALUES ('8471', '1', 'admin', '登录', '46', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '127.0.0.1', '2017-12-21 12:13:13');
+INSERT INTO `sys_log` VALUES ('8472', '1', 'admin', '请求访问主页', '305', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-21 12:13:13');
+INSERT INTO `sys_log` VALUES ('8473', '1', 'admin', '登录', '43', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '127.0.0.1', '2017-12-21 12:14:17');
+INSERT INTO `sys_log` VALUES ('8474', '1', 'admin', '请求访问主页', '285', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-21 12:14:17');
+INSERT INTO `sys_log` VALUES ('8475', '1', 'admin', '登录', '54', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '127.0.0.1', '2017-12-21 12:15:12');
+INSERT INTO `sys_log` VALUES ('8476', '1', 'admin', '请求访问主页', '306', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-21 12:15:13');
+INSERT INTO `sys_log` VALUES ('8477', '1', 'admin', '登录', '41', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '127.0.0.1', '2017-12-21 12:17:18');
+INSERT INTO `sys_log` VALUES ('8478', '1', 'admin', '请求访问主页', '268', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-21 12:17:19');
+INSERT INTO `sys_log` VALUES ('8479', '1', 'admin', '登录', '43', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '127.0.0.1', '2017-12-21 12:18:18');
+INSERT INTO `sys_log` VALUES ('8480', '1', 'admin', '请求访问主页', '287', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-21 12:18:19');
+INSERT INTO `sys_log` VALUES ('8481', '1', 'admin', '登录', '54', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '127.0.0.1', '2017-12-21 12:19:37');
+INSERT INTO `sys_log` VALUES ('8482', '1', 'admin', '请求访问主页', '315', 'com.bootdo.system.controller.LoginController.index()', null, '127.0.0.1', '2017-12-21 12:19:37');
+INSERT INTO `sys_log` VALUES ('8483', '-1', '获取用户信息为空', '登录', '9', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '125.119.243.253', '2017-12-21 12:47:52');
+INSERT INTO `sys_log` VALUES ('8484', '1', 'admin', '登录', '5', 'com.bootdo.system.controller.LoginController.ajaxLogin()', null, '125.119.243.253', '2017-12-21 12:47:56');
+INSERT INTO `sys_log` VALUES ('8485', '1', 'admin', '请求访问主页', '121', 'com.bootdo.system.controller.LoginController.index()', null, '125.119.243.253', '2017-12-21 12:47:56');
 
 -- ----------------------------
 -- Table structure for sys_menu
