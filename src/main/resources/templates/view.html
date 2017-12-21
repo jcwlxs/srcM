@@ -43,7 +43,7 @@
 <body>
 
 <p style="text-align: center">
-    <a class="btn btn-link" title="公司链接" target="_blank" th:href="${'http://'+srcObj.link}"><i class="fa fa-link"></i></a>
+    <a class="btn btn-link" title="公司链接" target="_blank" th:href="${srcObj.link}"><i class="fa fa-link"></i></a>
     <a class="btn btn-link" th:data="${srcObj.id}" id="category" title="产品分类" href="javascript:;"><i class="fa fa-product-hunt" ></i></a>
 </p>
 <h5 style=";color: white;text-align: center"><span th:text="${srcObj.name}"></span></h5>
