@@ -39,11 +39,31 @@ function validateRule() {
         rules: {
             name: {
                 required: true
+            },
+            imgUrl: {
+                required: true
+            },
+            link: {
+                required: true,
+                url: true
+            },
+            introduction: {
+                required: true
             }
         },
         messages: {
             name: {
-                required: icon + "请输入姓名"
+                required: icon + "请输入公司名"
+            },
+            imgUrl: {
+                required: icon + "请上传logo"
+            },
+            link: {
+                required: icon + "请输入公司链接",
+                url: icon + "链接格式不正确"
+            },
+            introduction: {
+                required: icon + "请输入公司简介"
             }
         }
     })

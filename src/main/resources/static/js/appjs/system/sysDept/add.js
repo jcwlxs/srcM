@@ -40,11 +40,17 @@ function validateRule() {
         rules: {
             name: {
                 required: true
+            },
+            srcName: {
+                required: true
             }
         },
         messages: {
             name: {
                 required: icon + "请输入分类名"
+            },
+            srcName: {
+                required: icon + "请选择所属公司"
             }
         }
     })

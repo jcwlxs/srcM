@@ -80,7 +80,7 @@ function edit(id) {
 	});
 }
 function removeone(id) {
-	layer.confirm('确定要删除选中的记录？', {
+	layer.confirm('确定要删除选中的记录及其子分类？', {
 		btn : [ '确定', '取消' ]
 	}, function() {
 		$.ajax({
@@ -101,8 +101,6 @@ function removeone(id) {
 	})
 }
 
-function resetPwd(id) {
-}
 function batchRemove() {
 	var rows = $('#exampleTable').bootstrapTable('getSelections'); // 返回所有选择的行，当没有选择的记录时，返回一个空数组
 	if (rows.length == 0) {
