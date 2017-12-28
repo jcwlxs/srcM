@@ -4,71 +4,71 @@
 <mapper namespace="com.bootdo.system.dao.DeptDao">
 
 	<select id="get" resultType="com.bootdo.system.domain.DeptDO">
-		select
-		`dept_id`,`src_id`,`parent_id`,`name`,`order_num`,`del_flag` from sys_dept
-		where dept_id = #{value}
+		select `dept_id`,`parent_id`,`name`,`order_num`,`del_flag`,`img_url`,`introduction`,`src_id` from sys_dept where dept_id = #{value}
 	</select>
 
 	<select id="list" resultType="com.bootdo.system.domain.DeptDO">
-		select `dept_id`,`src_id`,`parent_id`,`name`,`order_num`,`del_flag` from
-		sys_dept
-		<where>
-			<if test="deptId != null and deptId != ''"> and (dept_id = #{deptId})</if>
-			<if test="srcId != null and srcId != ''"> and (src_id = #{srcId})</if>
-			<if test="parentId != null and parentId != ''"> and parent_id = #{parentId} </if>
-			<if test="name != null and name != ''"> and name = #{name} </if>
-			<if test="orderNum != null and orderNum != ''"> and order_num = #{orderNum} </if>
-			<if test="delFlag != null and delFlag != ''"> and del_flag = #{delFlag} </if>
-            <if test="deptName!=null and deptName!=''">
-                and `name` like concat('%',#{deptName},'%')
-            </if>
-		</where>
-		<choose>
-			<when test="sort != null and sort.trim() != ''">
-				order by ${sort} ${order}
-			</when>
+		select `dept_id`,`parent_id`,`name`,`order_num`,`del_flag`,`img_url`,`introduction`,`src_id` from sys_dept
+        <where>  
+		  		  <if test="deptId != null and deptId != ''"> and dept_id = #{deptId} </if>
+		  		  <if test="parentId != null and parentId != ''"> and parent_id = #{parentId} </if>
+		  		  <if test="name != null and name != ''"> and name like concat('%',#{name},'%') </if>
+		  		  <if test="orderNum != null and orderNum != ''"> and order_num = #{orderNum} </if>
+		  		  <if test="delFlag != null and delFlag != ''"> and del_flag = #{delFlag} </if>
+		  		  <if test="imgUrl != null and imgUrl != ''"> and img_url = #{imgUrl} </if>
+		  		  <if test="introduction != null and introduction != ''"> and introduction = #{introduction} </if>
+		  		  <if test="srcId != null and srcId != ''"> and src_id = #{srcId} </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
 			<otherwise>
-				order by dept_id desc
+                order by dept_id desc
 			</otherwise>
-		</choose>
+        </choose>
 		<if test="offset != null and limit != null">
 			limit #{offset}, #{limit}
 		</if>
-
 	</select>
-
-	<select id="count" resultType="int">
+	
+ 	<select id="count" resultType="int">
 		select count(*) from sys_dept
-		<where>
-			<if test="deptId != null and deptId != ''"> and (dept_id = #{deptId})</if>
-			<if test="srcId != null and srcId != ''"> and (src_id = #{srcId})</if>
-			<if test="parentId != null and parentId != ''"> and parent_id = #{parentId} </if>
-			<if test="name != null and name != ''"> and name = #{name} </if>
-			<if test="orderNum != null and orderNum != ''"> and order_num = #{orderNum} </if>
-			<if test="delFlag != null and delFlag != ''"> and del_flag = #{delFlag} </if>
-		</where>
+		 <where>  
+		  		  <if test="deptId != null and deptId != ''"> and dept_id = #{deptId} </if>
+		  		  <if test="parentId != null and parentId != ''"> and parent_id = #{parentId} </if>
+		  		  <if test="name != null and name != ''"> and name = #{name} </if>
+		  		  <if test="orderNum != null and orderNum != ''"> and order_num = #{orderNum} </if>
+		  		  <if test="delFlag != null and delFlag != ''"> and del_flag = #{delFlag} </if>
+		  		  <if test="imgUrl != null and imgUrl != ''"> and img_url = #{imgUrl} </if>
+		  		  <if test="introduction != null and introduction != ''"> and introduction = #{introduction} </if>
+		  		  <if test="srcId != null and srcId != ''"> and src_id = #{srcId} </if>
+		  		</where>
 	</select>
-
-	<insert id="save" parameterType="com.bootdo.system.domain.DeptDO"
-		useGeneratedKeys="true" keyProperty="deptId">
+	 
+	<insert id="save" parameterType="com.bootdo.system.domain.DeptDO" useGeneratedKeys="true" keyProperty="deptId">
 		insert into sys_dept
 		(
-		`parent_id`,
-		`src_id`,
-		`name`,
-		`order_num`,
-		`del_flag`
+			`parent_id`, 
+			`name`, 
+			`order_num`, 
+			`del_flag`, 
+			`img_url`, 
+			`introduction`, 
+			`src_id`
 		)
 		values
 		(
-		#{parentId},
-		#{srcId},
-		#{name},
-		#{orderNum},
-		#{delFlag}
+			#{parentId}, 
+			#{name}, 
+			#{orderNum}, 
+			#{delFlag}, 
+			#{imgUrl}, 
+			#{introduction}, 
+			#{srcId}
 		)
 	</insert>
-
+	 
 	<update id="update" parameterType="com.bootdo.system.domain.DeptDO">
 		update sys_dept
 		<set>
@@ -76,7 +76,9 @@
 			<if test="name != null">`name` = #{name}, </if>
 			<if test="orderNum != null">`order_num` = #{orderNum}, </if>
 			<if test="delFlag != null">`del_flag` = #{delFlag},</if>
-            <if test="srcId != null">`src_id` = #{srcId}</if>
+            <if test="srcId != null">`src_id` = #{srcId},</if>
+            <if test="introduction != null "> `introduction` = #{introduction}, </if>
+            <if test="imgUrl != null">`img_url` = #{imgUrl}</if>
 		</set>
 		where dept_id = #{deptId}
 	</update>
@@ -88,14 +90,14 @@
         where dept_id = #{deptId}
     </update>
 
-    <delete id="remove">
+	
+	<delete id="remove">
 		delete from sys_dept where dept_id = #{value}
 	</delete>
-
+	
 	<delete id="batchRemove">
-		delete from sys_dept where dept_id in
-		<foreach item="deptId" collection="array" open="(" separator=","
-			close=")">
+		delete from sys_dept where dept_id in 
+		<foreach item="deptId" collection="array" open="(" separator="," close=")">
 			#{deptId}
 		</foreach>
 	</delete>

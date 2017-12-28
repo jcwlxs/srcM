@@ -1,42 +1,66 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:include="include :: header"></head>
-<body class="gray-bg">
-<input type="hidden" th:value="${srcId}" id="srcId"/>
-<div class="wrapper wrapper-content ">
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="ibox-content">
-                <div id="jsTree"></div>
-            </div>
-        </div>
-    </div>
-</div>
-<div th:include="include :: footer"></div>
-<script type="text/javascript">
+<style>
+img {
+	width: 200px;
+	height: 200px
+}
+
+body {
+	background-color: #151844;
+}
+p{
+	word-break:break-word;
+	font-size: 1.2em;
+	 color: white;
+}
+.con{
+	margin:15%;
+	border:1px solid #C0C0C0;
+}
+</style>
+<body>
+	<div class="container">
+	<input type="hidden" th:value="${srcId}" id="srcId" />
+	<div class="wrapper wrapper-content ">
+		<div class="col-sm-4">
+			<img id="logo" th:src="@{${imgUrl}}" />
+		</div>
+		<div id="box" class="col-md-6 col-md-offset-3">
+		</div>
+	</div>
+	</div>
+	<div th:include="include :: footer"></div>
+	<script type="text/javascript">
     $(document).ready(function () {
-        getTreeData($('#srcId').val())
+        getLoadData($('#srcId').val());
     });
-
-    function getTreeData(srcId) {
-        $.ajax({
-            type: "GET",
-            url: "/src/tree?srcId=" + srcId,
-            success: function (tree) {
-                loadTree(tree);
-            }
-        });
-    }
-
-    function loadTree(tree) {
-        $('#jsTree').jstree({
-            'core': {
-                'data': tree
-            },
-            // "plugins" : [ "checkbox" ]
-        });
-        $('#jsTree').jstree().open_all();
-    }
+   
+    function getLoadData(id){
+    	 $.ajax({
+    	        cache: true,
+    	        type: "GET",
+    	        url: "/system/sysDept/list",
+    	        data: {"srcId":id},
+    	        async: false,
+    	        error: function (request) {
+    	            parent.layer.alert("Connection error");
+    	        },
+    	        success: function (data) {
+    	           var box = $("#box");
+    	           box.empty();
+    	          for(var i in data){
+    	        	  if(!data[i].imgUrl) return;
+    	        	 var content ="<div class='con'><p align='center'>产品名称：<span>"+data[i].name+"</span></p>"
+    							+"<img class='img-responsive center-block' src="+data[i].imgUrl+">"
+    							+"<p align='center'>产品简介：</br><span>"+data[i].introduction+"</span></p></div>";
+    				box.append(content);
+    	          }
+    	        }
+    	    });
+    };
+    
 </script>
 </body>
 </html>

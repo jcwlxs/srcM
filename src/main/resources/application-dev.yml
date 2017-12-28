@@ -1,5 +1,5 @@
 bootdo:
-  uploadPath: /var/uploaded_files/
+  uploadPath: D:/var/uploaded_files/
 logging:
   level:
     com.bootdo: debug
@@ -9,7 +9,7 @@ spring:
     driverClassName: com.mysql.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/bootdo?useUnicode=true&characterEncoding=utf8&useSSL=false
     username: root
-    password:
+    password: root
     initialSize: 1
     minIdle: 3
     maxActive: 20

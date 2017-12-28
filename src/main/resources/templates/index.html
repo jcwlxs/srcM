@@ -6,66 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <title>SRC厂商搜索</title>
-    <div th:replace="include::header"></div>
-    <style>
-        body {
-            background-color: #0a0f30;
-            padding:10px 10%;
-        }
-
-        .logo {
-            background: #fafafa;
-            margin: 50px;
-            position: relative;
-        }
-
-        iframe.ff {
-            width: 200%;
-            height: 200%;
-            background-color: #fcfcfc;
-            border: 0;
-            transition: all 0.3s ease-in-out;
-        }
-
-        iframe.ff:hover {
-            border-radius: 7px;
-            transform: scale(1.2);
-        }
-
-        .detail {
-            position: absolute;
-            top: 0;
-            left: -50%;
-        }
-
-        .logo .detail {
-            display: none;
-            z-index: 5;
-            /*padding: 10px*/
-        }
-
-        .logo:hover .detail {
-            display: block;
-        }
-
-        img {
-            cursor: pointer;
-            border-radius: 5px;
-            width: 50px;
-            height: 50px;
-        }
-
-        #demo {
-            display: flex;
-            justify-content: space-evenly;
-            flex-flow: row wrap;
-            margin: 5% 10%;
-        }
-
-        input {
-            text-align: center
-        }
-    </style>
+    <link rel="stylesheet" th:href="@{/css/index.css}">
 </head>
 <body>
 <nav class="navbar navbar-default" role="navigation">
@@ -104,10 +45,12 @@
             var rows =[];
             rows=data.rows;
             for (var i = 0; i < rows.length; i++) {
-                $('#demo').append('<div class="logo">' +
-                    '<img src="' + rows[i].imgUrl + '"/>' +
-                    '<div class="detail"><iframe class="ff" src="src/view/' + rows[i].id + '"></iframe></div>' +
-                    '</div>')
+            	 $('#demo').append('<div class="logo">' +
+                         '<a class="imgBtn" target="_blank" href="/src/treeView?srcId=' + rows[i].id + '">' +
+                         '<img src="' + rows[i].imgUrl + '"/>' +
+                         '</a>' +
+                         '<div class="detail"><iframe class="ff" src="src/view/' + rows[i].id + '"></iframe></div>' +
+                         '</div>')
             }
         })
     }

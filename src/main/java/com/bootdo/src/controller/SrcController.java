@@ -132,7 +132,11 @@ public class SrcController {
 
     @GetMapping("/treeView")
     public String treeView(@RequestParam(required = false) Long srcId,Model model) {
+    	String imgUrl = srcService.get(srcId).getImgUrl();
         model.addAttribute("srcId",srcId);
+        model.addAttribute("imgUrl",imgUrl);
+        System.out.println(srcId);
+        System.out.println(imgUrl);
         return "treeView";
     }
 }

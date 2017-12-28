@@ -82,6 +82,7 @@ public class ShiroConfig {
 		filterChainDefinitionMap.put("/", "anon");
 		filterChainDefinitionMap.put("/src/**", "anon");
 		filterChainDefinitionMap.put("/src/treeView", "anon");
+		filterChainDefinitionMap.put("/system/sysDept/**", "anon");
 		filterChainDefinitionMap.put("/blog", "anon");
 		filterChainDefinitionMap.put("/blog/open/**", "anon");
 		filterChainDefinitionMap.put("/**", "authc");

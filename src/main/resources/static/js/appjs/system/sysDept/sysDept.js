@@ -13,7 +13,7 @@ function load() {
 				type : "GET", // 请求数据的ajax类型
 				url : prefix + '/list', // 请求数据的ajax的url
 				ajaxParams : {
-				    deptName:$('#searchName').val()
+				   name:$('#searchName').val()
                 }, // 请求数据的ajax的data属性
 				expandColumn : '1', // 在哪一列上面显示展开按钮
 				striped : true, // 是否各行渐变色
@@ -32,6 +32,15 @@ function load() {
 					{
 						field : 'name',
 						title : '分类名称'
+					},
+					{
+						field : 'imgUrl', 
+						title : '产品图片',
+                      
+					},
+					{
+						field : 'introduction', 
+						title : '产品简介'
 					},
 					{
 						field : 'srcName',

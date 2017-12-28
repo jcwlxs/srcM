@@ -46,11 +46,13 @@ public class DeptController extends BaseController {
 
     @ResponseBody
     @GetMapping("/list")
-    @RequiresPermissions("system:sysDept:sysDept")
     public List<DeptDO> list(@RequestParam Map query) {
+    	System.out.println(query);
         List<DeptDO> sysDeptList = sysDeptService.list(query);
+        System.out.println(sysDeptList.toString());
         return sysDeptList;
     }
+
 
     @GetMapping("/add/{pId}")
     @RequiresPermissions("system:sysDept:add")
